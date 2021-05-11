@@ -33,10 +33,12 @@ public class MyCoolClass {
 
                     post.forEach((key1, value1) -> {
                         if (key1.equalsIgnoreCase("responses")) {
+                            // TODO how to make this more abstract
                             Map<String, Object> responseResult = (HashMap) value1;
                             Map<String, Object> content200 = (HashMap) responseResult.get("200");
                             Map<String, Object> schema = (HashMap) content200.get("content");
                             Map<String, Object> contentType = (HashMap) schema.get("application/json");
+
                             Object schema1 = contentType.get("schema");
                             if (!schema1.toString().contains("$ref")) {
                                 Map<String, Object> oneMoreTime = (HashMap) schema1;
@@ -46,6 +48,7 @@ public class MyCoolClass {
                                 Map<String, String> ref = new HashMap<>();
                                 ref.put("$ref", "#/components/schemas/" + s);
                                 contentType.put("schema", ref);
+                                // TODO how to make this more abstract
                                 schema.put("application/json", contentType);
                                 content200.put("content", schema);
                                 responseResult.put("200", content200);
